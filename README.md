@@ -1,5 +1,3 @@
-# DOPE_isaac-sim
-
 # 🧠 DOPE：使用 Isaac Sim 建立的深度物件姿態估計專案（6D Pose）
 
 本專案完整實作了 6D 物件姿態估計流程，從合成資料生成、模型訓練到推論，皆參考並結合以下官方資源所製作：
@@ -15,7 +13,7 @@
 
 這個 repo 包含以下三大模組：
 
-### 🔧 1. 合成資料生成（`pose_generation_formouse.py`）
+## 🔧 合成資料生成（`pose_generation_formouse.py`）
 
 使用 Isaac Sim 搭配 Replicator API 來產生 DOPE 格式的標註資料集。  
 你可以指定任意 `.usd` 格式的 3D 模型（例如滑鼠模型），並產生下列輸出：
@@ -28,7 +26,9 @@
 ./python.sh standalone_examples/replicator/pose_generation/pose_generation_formouse.py --num_mesh 0 --num_dome 3
 
 ```
-# 🏋️‍♂️ 模型訓練（train.py）
+---
+
+## 🏋️‍♂️ 模型訓練（train.py）
 
 本專案也完整時做了訓練 DOPE 模型的主腳本。
 
@@ -36,7 +36,6 @@
 - 可自訂 batch size、epoch 數與儲存間隔
 - 支援 TensorboardX 監看 loss 曲線與結果
 
----
 
 ## 📁 使用說明
 
@@ -56,7 +55,9 @@ python3 train.py \
 
 ```
 
-# 🧪 模型推論（inference.py）
+---
+
+## 🧪 模型推論（inference.py）
 
 此流程會載入訓練完成的 DOPE 模型，對資料夾中的圖片進行推論，並輸出 .json 及對應視覺化圖片。
 
@@ -82,17 +83,45 @@ python3 inference.py \
 可選擇輸出 belief map 以除錯
 
 📌 常用參數說明：
---data：要進行推論的圖像資料夾
+- data：要進行推論的圖像資料夾
 
---weights：DOPE 訓練好的模型權重（.pth）
+- weights：DOPE 訓練好的模型權重（.pth）
 
---object：要推論的物件類別名稱
+- object：要推論的物件類別名稱
 
---config：模型對應的設定檔
+- config：模型對應的設定檔
 
---camera：相機內參檔案（通常與合成資料使用的參數相同）
+- camera：相機內參檔案（通常與合成資料使用的參數相同）
 
---outf：推論結果儲存路徑
+- outf：推論結果儲存路徑
 
---debug：是否輸出 belief map 與點圖（可協助除錯）
+- debug：是否輸出 belief map 與點圖（可協助除錯）
+
+---
+
+⚙️ 執行環境需求
+- Isaac Sim 版本：4.5.0+
+
+- Python 版本：3.7 ~ 3.9（需符合 Isaac Sim 相容性）
+
+- CUDA 支援 GPU（建議 RTX 系列）
+
+- 套件需求：
+
+  1.torch, torchvision
+  
+  2.opencv-python
+  
+  3.Pillow
+  
+  4.matplotlib
+  
+  5.tensorboardX
+  
+  6.simplejson
+  
+  7.pyyaml
+  
+  8.Isaac Sim 自帶的 omni.replicator.core, isaacsim.core 等模組
+
 
